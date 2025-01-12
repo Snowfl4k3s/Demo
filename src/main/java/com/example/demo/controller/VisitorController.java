@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.Loaders.DataLoader;
 import com.example.demo.Main;
+import com.example.demo.MyListener;
 import com.example.demo.models.Property;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,6 +64,8 @@ public class VisitorController implements Initializable {
     @FXML
     private GridPane grid;
 
+    private MyListener myListener;
+
     List<Property> PropertyList = DataLoader.loadProperties();
     private List<Property> getData() {
 
@@ -86,31 +89,6 @@ public class VisitorController implements Initializable {
         return PropertyList;
     }
 
-//    private List<PropertyTam> properties = new ArrayList<>();
-//
-//    private List<PropertyTam> getData() {
-//        List<PropertyTam> properties = new ArrayList<>();
-//        PropertyTam propertyTam;
-//
-//        for(int i = 0; i < 50; i++){
-//            //Lay data xuong xong thay vao cho nay
-//            //Can add them ca Host vca Owner nua
-//            propertyTam = new PropertyTam();
-//            propertyTam.setAddress("a");
-//            propertyTam.setPricing(3);
-//            propertyTam.setAvailability("a");
-//            propertyTam.setBedroom(3);
-//            propertyTam.setGarden(true);
-//            propertyTam.setPets(true);
-//            propertyTam.setType("Office");
-//            propertyTam.setParking(3);
-//            propertyTam.setArea(3);
-//            properties.add(propertyTam);
-//        }
-//
-//        return properties;
-//    }
-//
     private void setChosenProperty(Property property) {
         address.setText(property.getAddress());
         area.setText("" + property.getArea());
@@ -143,6 +121,12 @@ public class VisitorController implements Initializable {
         PropertyList.addAll(getData());
         if (PropertyList.size() > 0){
             setChosenProperty(PropertyList.get(0));
+            myListener = new MyListener() {
+                @Override
+                public void onClickListener(Property property) {
+                    setChosenProperty(property);
+                }
+            };
         }
         int column = 0;
         int row = 0;
@@ -153,7 +137,7 @@ public class VisitorController implements Initializable {
                     AnchorPane anchorPane = fxmlLoader.load();
 
                 PropertiesController propertiesController = fxmlLoader.getController();
-                propertiesController.setData(PropertyList.get(i));
+                propertiesController.setData(PropertyList.get(i), myListener);
 
                 if (column == 3) {
                     column = 0;
