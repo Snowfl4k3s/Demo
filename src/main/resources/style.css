@@ -1,0 +1,18 @@
+.scroll-pane {
+    -fx-background-color: transparent; /* Makes the viewport background transparent */
+    -fx-border-color: transparent;    /* Removes the default border */
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent; /* Makes the inner viewport transparent */
+}
+
+.property-item {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30;
+}
+
+.custom-button {
+    -fx-background-color: #add0db;
+    -fx-background-radius: 50;
+}
