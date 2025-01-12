@@ -35,7 +35,7 @@ public class Tenant implements Initializable {
 
     @FXML
     private Label host;
-nhma
+
     @FXML
     private Label owner;
 

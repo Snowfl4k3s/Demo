@@ -5,13 +5,13 @@ public class Property {
     private int pricing;
     private String availability;
 
-
     private int bedroom;
     private boolean garden;
     private boolean pets;
-    private String type;
+    private String buisnessType;
     private int parking;
     private double area;
+    private String type;
 
     public String getAddress() {
         return address;
@@ -84,5 +84,9 @@ public class Property {
     public void setArea(double area) {
         this.area = area;
     }
+
+    public String getBuisnessType() {return buisnessType;}
+
+    public void setBuisnessType(String buisnessType) {this.buisnessType = buisnessType;}
 
 }
