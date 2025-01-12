@@ -1,10 +1,11 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.Main;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
-public class Profile {
+public class ProfileController {
 
     public void submit(ActionEvent event) throws IOException {
         Main m = new Main();

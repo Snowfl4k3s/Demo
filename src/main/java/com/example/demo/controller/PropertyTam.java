@@ -1,6 +1,6 @@
-package com.example.demo;
+package com.example.demo.controller;
 
-public class Property {
+public class PropertyTam {
     private String address;
     private int pricing;
     private String availability;

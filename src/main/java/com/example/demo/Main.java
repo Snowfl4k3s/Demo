@@ -42,6 +42,6 @@ public class Main extends Application {
         for (Property Property : PropertyList) {
             System.out.println(Property);
         }
-        //launch();
+        launch();
     }
 }
