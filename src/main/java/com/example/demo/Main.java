@@ -1,26 +1,15 @@
 package com.example.demo;
 
+import com.example.demo.models.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import com.example.demo.Loaders.*;
 
 import java.io.IOException;
-import java.util.Objects;
-import java.io.*;
-import java.sql.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import java.util.List;
 
 
 public class Main extends Application {
@@ -43,28 +32,11 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+        List<Tenant> TenantsList = DataLoader.loadTenants();
 
-        try (Connection conn = DriverManager.getConnection(supabaseUrl)) {
-            System.out.println("Connected to the database!");
-
-            String query = "SELECT * FROM \"Rental Management User\"";
-            try (Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery(query)) {
-                while (rs.next()) {
-                    System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
-                }
-            }
-
-
-            catch (SQLException e) {
-                System.err.println("Database error: " + e.getMessage());
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Connection failed: " + e.getMessage());
+        for (Tenant Tenant : TenantsList) {
+            System.out.println(Tenant);
         }
-
-        launch();
+        //launch();
     }
 }
