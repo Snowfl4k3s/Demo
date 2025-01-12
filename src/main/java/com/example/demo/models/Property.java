@@ -1,17 +1,32 @@
 package com.example.demo.models;
 
 public class Property {
+    private int id;
     private String address;
     private int pricing;
     private String availability;
-
+    private int hostedBy;
+    private int ownedBy;
     private int bedroom;
     private boolean garden;
     private boolean pets;
     private String buisnessType;
     private int parking;
-    private double area;
+    private float area;
     private String type;
+    private String imageUrl;
+
+    public Property() {
+
+    }
+
+    public String getImageUrl() {return imageUrl;}
+
+    public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public String getAddress() {
         return address;
@@ -77,11 +92,11 @@ public class Property {
         this.parking = parking;
     }
 
-    public double getArea() {
+    public float getArea() {
         return area;
     }
 
-    public void setArea(double area) {
+    public void setArea(float area) {
         this.area = area;
     }
 
@@ -89,4 +104,11 @@ public class Property {
 
     public void setBuisnessType(String buisnessType) {this.buisnessType = buisnessType;}
 
+    public int getHostedBy() {return hostedBy;}
+
+    public void setHostedBy(int hostedBy) {this.hostedBy = hostedBy;}
+
+    public int getOwnedBy() {return ownedBy;}
+
+    public void setOwnedBy(int ownedBy) {this.ownedBy = ownedBy;}
 }

@@ -68,17 +68,27 @@ public class DataLoader {
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(query)) {
                 while (rs.next()) {
-                    if (rs.getString("Property Type").equals("Tenant")) {
                         //System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
-                        Tenant tenant = new Tenant();
-                        tenant.setId(rs.getString("id"));
-                        tenant.setFullName(rs.getString("Name"));
-                        tenant.setDateOfBirth(rs.getDate("D_O_B"));
-                        tenant.setContactInfo(rs.getString("email"));
-
-                        tenants.add(tenant);
-
-                    }
+                        Property property = new Property();
+                        property.setId(rs.getInt("id"));
+                        property.setAddress(rs.getString("Address"));
+                        property.setPricing(rs.getInt("Pricing"));
+                        property.setAvailability(rs.getString("Availability"));
+                        property.setHostedBy(rs.getInt("Hosted by"));
+                        property.setOwnedBy(rs.getInt("Owned by"));
+                        property.setImageUrl(rs.getString("Image URL"));
+                        property.setType(rs.getString("Property Type"));
+                        if(property.getType().equals("Residential")){
+                            property.setBedroom(rs.getInt("No.Bedrooms"));
+                            property.setGarden(rs.getBoolean("Avail.Garden"));
+                            property.setPets(rs.getBoolean("Pet.Friendly"));
+                        }
+                        else {
+                            property.setBuisnessType(rs.getString("Business.Ty"));
+                            property.setParking(rs.getInt("Parking.Space"));
+                            property.setArea(rs.getFloat("Square.Ft"));
+                        }
+                        properties.add(property);
                 }
             } catch (SQLException e) {
                 System.err.println("Database error: " + e.getMessage());
