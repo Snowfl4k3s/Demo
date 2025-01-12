@@ -14,6 +14,9 @@ public class Host extends Person {
         this.managedProperties = new ArrayList<>();
         this.rentalAgreements = new ArrayList<>();
     }
+    public Host(){
+
+    }
 
     // Getters and Setters
     public List<Property> getManagedProperties() {

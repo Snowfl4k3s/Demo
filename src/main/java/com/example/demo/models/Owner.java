@@ -14,6 +14,9 @@ public class Owner extends Person {
         this.ownedProperties = new ArrayList<>();
         this.rentalAgreements = new ArrayList<>();
     }
+    public Owner(){
+
+    }
 
     // Getters and Setters
     public List<Property> getOwnedProperties() {

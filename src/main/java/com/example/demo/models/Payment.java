@@ -4,29 +4,37 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Payment {
-    private String paymentId;
-
+    private int paymentId;
+    private int tenantId;
+    private int propertyId;
     private Date date;
     private String paymentMethod; // e.g., Cash, Credit Card, Bank Transfer
 
-    public Payment(String paymentId, Date date, String paymentMethod) {
+    public Payment(int paymentId, Date date, String paymentMethod) {
         this.paymentId = paymentId;
         this.date = date;
         this.paymentMethod = paymentMethod;
     }
+    public Payment(){
+
+    }
 
     // Getters and Setters
-    public String getPaymentId() {
+    public int getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(String paymentId) {
+    public void setPaymentId(int paymentId) {
         this.paymentId = paymentId;
     }
 
+    public int getTenantId() {return tenantId;}
 
+    public void setTenantId(int tenantId) {this.tenantId = tenantId;}
 
+    public int getPropertyId() {return propertyId;}
 
+    public void setPropertyId(int propertyId) {this.propertyId = propertyId;}
 
     public Date getDate() {
         return date;

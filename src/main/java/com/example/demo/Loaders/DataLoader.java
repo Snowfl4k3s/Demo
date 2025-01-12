@@ -55,7 +55,7 @@ public class DataLoader {
         return tenants;
     }
 
-    public static List<Owner> loadOwner() {
+    public static List<Owner> loadOwners() {
         List<Owner> owners = new ArrayList<>();
         String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
         Connection conn = null;
@@ -100,7 +100,7 @@ public class DataLoader {
         return owners;
     }
 
-    public static List<Owner> loadHost() {
+    public static List<Host> loadHosts() {
         List<Host> hosts = new ArrayList<>();
         String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
         Connection conn = null;
@@ -201,5 +201,96 @@ public class DataLoader {
         return properties;
     }
 
-    public static List<RentalAgreement>
+    public static List<RentalAgreement> loadRentalAgreements() {
+        List<RentalAgreement> rentalAgreements = new ArrayList<>();
+        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+        Connection conn = null;
+
+        try {
+            conn = DriverManager.getConnection(supabaseUrl);
+            System.out.println("Connected to the database!");
+
+            String query = "SELECT * FROM \"Rental Agreements\"";
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(query)) {
+                while (rs.next()) {
+
+                        //System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
+                        RentalAgreement rentalAgreement = new RentalAgreement();
+                        rentalAgreement.setid(rs.getInt("id"));
+                        rentalAgreement.setProperty(rs.getInt("Property"));
+                        rentalAgreement.setMainTenant(rs.getInt("Tenant"));
+                        rentalAgreement.setHost(rs.getInt("Host"));
+                        rentalAgreement.setOwner(rs.getInt("Owner"));
+                        rentalAgreement.setContractDate(rs.getDate("Date Leased"));
+                        rentalAgreement.setStatus(rs.getString("Status"));
+
+                    rentalAgreements.add(rentalAgreement);
+
+
+                }
+            } catch (SQLException e) {
+                System.err.println("Database error: " + e.getMessage());
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Connection failed: " + e.getMessage());
+        } finally {
+            // Close the connection in the `finally` block to ensure it's always closed
+            if (conn != null) {
+                try {
+                    conn.close();
+                    System.out.println("Connection closed.");
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Handle exceptions when closing
+                }
+            }
+        }
+        return rentalAgreements;
+    }
+    public static List<Payment> loadPayments() {
+        List<Payment> payments = new ArrayList<>();
+        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+        Connection conn = null;
+
+        try {
+            conn = DriverManager.getConnection(supabaseUrl);
+            System.out.println("Connected to the database!");
+
+            String query = "SELECT * FROM \"Rental Management User\"";
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(query)) {
+                while (rs.next()) {
+
+                        //System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
+                        Payment payment = new Payment();
+                        payment.setPaymentId(rs.getInt("id"));
+                        payment.setTenantId(rs.getInt("Tenant"));
+                        payment.setPropertyId(rs.getInt("Property"));
+                        payment.setDate(rs.getDate("Date Paid"));
+                        payment.setPaymentMethod(rs.getString("PaymentMethod"));
+
+                        payments.add(payment);
+
+
+                }
+            } catch (SQLException e) {
+                System.err.println("Database error: " + e.getMessage());
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Connection failed: " + e.getMessage());
+        } finally {
+            // Close the connection in the `finally` block to ensure it's always closed
+            if (conn != null) {
+                try {
+                    conn.close();
+                    System.out.println("Connection closed.");
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Handle exceptions when closing
+                }
+            }
+        }
+        return payments;
+    }
 }

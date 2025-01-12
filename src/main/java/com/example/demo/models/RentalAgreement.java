@@ -1,87 +1,75 @@
 package com.example.demo.models;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class RentalAgreement {
-    private String id;
-    private Property property;
-    private Tenant mainTenant;
-    private Owner owner;
-    private Host host;
-    private String period; // Daily, Weekly, Monthly
+    private int id;
+    private int propertyId;
+    private int tenantId;
+    private int ownerId;
+    private int hostId;
     private Date contractDate;
-    private double rentFee;
-    private String status; // New, Active, Completed
 
-    public RentalAgreement(String id, String period, Date contractDate, double rentFee, String status) {
+    private String status; // Ongoing or Completed
+
+    public RentalAgreement(int id, Date contractDate, String status) {
         this.id = id;
-        this.period = period;
         this.contractDate = contractDate;
-        this.rentFee = rentFee;
         this.status = status;
     }
 
     public RentalAgreement(){
-        id = "000";
-        period = "Weekly";
-
-        status = "New";
+        id = 0;
+        status = "Ongoing";
     }
 
     // Getters and Setters
-    public String getAgreementId() {
+    public int getAgreementId() {
         return id;
     }
 
-    public void setid(String id) {
+    public void setid(int id) {
         this.id = id;
     }
 
-    public Property getProperty() {
-        return property;
+    public int getProperty() {
+        return propertyId;
     }
 
-    public void setProperty(Property property) {
-        this.property = property;
+    public void setProperty(int property) {
+        this.propertyId = property;
     }
 
-    public Tenant getMainTenant() {
-        return mainTenant;
+    public int getMainTenant() {
+        return tenantId;
     }
 
-    public void setMainTenant(Tenant mainTenant) {
-        this.mainTenant = mainTenant;
+    public void setMainTenant(int mainTenant) {
+        this.tenantId = mainTenant;
     }
 
 
-    public Owner getOwner() {
-        return owner;
+    public int getOwner() {
+        return ownerId;
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    public void setOwner(int owner) {
+        this.ownerId = owner;
     }
 
-    public Host getHost(){return host;}
+    public int getHost(){return hostId;}
 
-    public void setHost(Host host) {
-        this.host = host;
+    public void setHost(int host) {
+        this.hostId = host;
     }
 
-    public String getPeriod() {
-        return period;
-    }
 
-    public void setPeriod(String period) {
-        this.period = period;
-    }
 
     public Date getContractDate() {
         return contractDate;
     }
+
     public String getContractDateString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(contractDate); // Formats the Date object
@@ -91,13 +79,7 @@ public class RentalAgreement {
         this.contractDate = contractDate;
     }
 
-    public double getRentFee() {
-        return rentFee;
-    }
 
-    public void setRentFee(double rentFee) {
-        this.rentFee = rentFee;
-    }
 
     public String getStatus() {
         return status;
@@ -115,13 +97,11 @@ public class RentalAgreement {
         String formattedDate = dateFormat.format(contractDate); // Formats the Date object
 
         return String.format(
-                "%-15s%-20s%-35s%-15s%-20s%-15s%-20s%-15s",
+                "%-15s%-20s%-35s%-15s%-20s%-15s",
                 id,
-                mainTenant.getFullName(),
-                property.getAddress(),
-                period,
+                tenantId,
+                propertyId,
                 formattedDate,
-                rentFee,
                 status
         );
     }
