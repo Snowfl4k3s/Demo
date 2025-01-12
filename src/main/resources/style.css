@@ -16,3 +16,8 @@
     -fx-background-color: #add0db;
     -fx-background-radius: 50;
 }
+
+.payment {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30;
+}

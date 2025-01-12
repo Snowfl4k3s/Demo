@@ -42,7 +42,7 @@ public class LogIn {
             wrongLogin.setText("Success!");
 
             Main m = new Main();
-            m.changeScene("/VisitorAccessPage.fxml");
+            m.changeScene("/Host.fxml");
         }
 
         else {

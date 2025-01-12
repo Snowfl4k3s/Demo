@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.models.Property;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
