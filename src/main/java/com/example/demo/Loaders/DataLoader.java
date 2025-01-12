@@ -55,6 +55,97 @@ public class DataLoader {
         return tenants;
     }
 
+    public static List<Owner> loadOwner() {
+        List<Owner> owners = new ArrayList<>();
+        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+        Connection conn = null;
+
+        try {
+            conn = DriverManager.getConnection(supabaseUrl);
+            System.out.println("Connected to the database!");
+
+            String query = "SELECT * FROM \"Rental Management User\"";
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(query)) {
+                while (rs.next()) {
+                    if (rs.getString("Role").equals("Owner")) {
+                        //System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
+                        Owner owner = new Owner();
+                        owner.setId(rs.getString("id"));
+                        owner.setFullName(rs.getString("Name"));
+                        owner.setDateOfBirth(rs.getDate("D_O_B"));
+                        owner.setContactInfo(rs.getString("email"));
+
+                        owners.add(owner);
+
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("Database error: " + e.getMessage());
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Connection failed: " + e.getMessage());
+        } finally {
+            // Close the connection in the `finally` block to ensure it's always closed
+            if (conn != null) {
+                try {
+                    conn.close();
+                    System.out.println("Connection closed.");
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Handle exceptions when closing
+                }
+            }
+        }
+        return owners;
+    }
+
+    public static List<Owner> loadHost() {
+        List<Host> hosts = new ArrayList<>();
+        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+        Connection conn = null;
+
+        try {
+            conn = DriverManager.getConnection(supabaseUrl);
+            System.out.println("Connected to the database!");
+
+            String query = "SELECT * FROM \"Rental Management User\"";
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(query)) {
+                while (rs.next()) {
+                    if (rs.getString("Role").equals("Host")) {
+                        //System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
+                        Host host = new Host();
+                        host.setId(rs.getString("id"));
+                        host.setFullName(rs.getString("Name"));
+                        host.setDateOfBirth(rs.getDate("D_O_B"));
+                        host.setContactInfo(rs.getString("email"));
+
+                        hosts.add(host);
+
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("Database error: " + e.getMessage());
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Connection failed: " + e.getMessage());
+        } finally {
+            // Close the connection in the `finally` block to ensure it's always closed
+            if (conn != null) {
+                try {
+                    conn.close();
+                    System.out.println("Connection closed.");
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Handle exceptions when closing
+                }
+            }
+        }
+        return hosts;
+    }
+
+
     public static List<Property> loadProperties() {
         List<Property> properties = new ArrayList<>();
         String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
@@ -109,4 +200,6 @@ public class DataLoader {
         }
         return properties;
     }
+
+    public static List<RentalAgreement>
 }
