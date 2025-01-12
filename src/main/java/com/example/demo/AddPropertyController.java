@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,7 +20,7 @@ public class AddPropertyController implements Initializable {
         choiceBox.getItems().addAll(choice);
     }
 
-    public void submit(ActionEvent event) {
+    public void submit(ActionEvent event) throws IOException {
         System.out.println("a");
     }
 }
