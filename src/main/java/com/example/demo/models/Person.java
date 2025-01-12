@@ -14,6 +14,13 @@ public abstract class Person {
         this.dateOfBirth = dateOfBirth;
         this.contactInfo = contactInfo;
     }
+
+    public Person(){
+        this.id = null;
+        this.fullName = null;
+        this.dateOfBirth = null;
+        this.contactInfo = null;
+    }
     // Getters and Setters
     public String getId() {
         return id;
@@ -39,7 +46,7 @@ public abstract class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getContactInfo() {
+    public String getContactInfo(String email) {
         return contactInfo;
     }
 

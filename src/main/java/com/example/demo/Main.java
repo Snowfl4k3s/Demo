@@ -1,17 +1,20 @@
 package com.example.demo;
 
+import com.example.demo.models.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import com.example.demo.Loaders.*;
 
 import java.io.IOException;
+import java.util.List;
+
 
 public class Main extends Application {
 
     private static Stage primaryStage;
-//    private static Stage secondaryStage;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -23,20 +26,17 @@ public class Main extends Application {
         stage.show();
     }
 
-//    public void addTenantWindow(String fxml) throws IOException {
-//        Parent newWindow = FXMLLoader.load(getClass().getResource(fxml));
-//        secondaryStage.setTitle("Tenants");
-//        secondaryStage.setScene(new Scene(newWindow, 900, 900));
-//        secondaryStage.setResizable(false);
-//        secondaryStage.show();
-//    }
-
     public void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         primaryStage.getScene().setRoot(pane);
     }
 
     public static void main(String[] args) {
-        launch();
+        List<Tenant> TenantsList = DataLoader.loadTenants();
+
+        for (Tenant Tenant : TenantsList) {
+            System.out.println(Tenant);
+        }
+        //launch();
     }
 }
