@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.models.Property;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class Tenant implements Initializable {
+public class TenantScene implements Initializable {
     @FXML
     private Label address;
 
@@ -72,15 +72,18 @@ public class Tenant implements Initializable {
     private List<Property> properties = new ArrayList<>();
 
     public void checkPayment(ActionEvent event) throws IOException {
-        //payment page
+        Main m = new Main();
+        m.changeScene("/Payment.fxml");
     }
 
     public void checkRental(ActionEvent event) throws IOException {
-        //rental page
+        Main m = new Main();
+        m.changeScene("/RentalAgreement.fxml");
     }
 
-    public void editProfile(ActionEvent event) throws IOException {
-        //Edit profile page
+    public void editProfile(MouseEvent event) throws IOException {
+        Main m = new Main();
+        m.changeScene("/Profile.fxml");
     }
 
     private List<Property> getData() {
