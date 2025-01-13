@@ -20,9 +20,9 @@ public class DataLoader {
             System.out.println("Connected to the database!");
 
             String query = "SELECT * FROM \"Rental Management User\"";
-            try (Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery(query)) {
-                while (rs.next()) {
+                try (Statement stmt = conn.createStatement();
+                     ResultSet rs = stmt.executeQuery(query)) {
+                    while (rs.next()) {
                     if (rs.getString("Role").equals("Tenant")) {
                         //System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
                         Tenant tenant = new Tenant();
