@@ -1,11 +1,10 @@
 package com.example.demo.Loaders;
 import java.sql.*;
-import java.text.*;
 
 import java.sql.Date;
 
 
-public class ProfileEditor {
+public class Editor {
     static String databaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
 
     public static void updateUser(int userId, String Name, String dob, String email, String password) {
