@@ -5,6 +5,8 @@ import com.example.demo.models.Property;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class PropertiesController {
@@ -13,6 +15,9 @@ public class PropertiesController {
 
     @FXML
     private Label priceNumber;
+
+    @FXML
+    private ImageView houseImg;
 
     @FXML
     private void click(MouseEvent actionEvent) {
@@ -28,5 +33,11 @@ public class PropertiesController {
         this.myListener = myListener;
         addressID.setText(property.getAddress());
         priceNumber.setText("" + property.getPricing());
+
+        Image img = new Image(property.getImageUrl(), true);
+        houseImg.setImage(img);
+
+        houseImg.setFitWidth(170);
+        houseImg.setPreserveRatio(true);
     }
 }

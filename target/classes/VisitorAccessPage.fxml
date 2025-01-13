@@ -64,53 +64,6 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="23.0" prefWidth="290.0">
-                     <children>
-                        <Separator prefWidth="200.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="31.0" prefWidth="290.0">
-                     <children>
-                        <Label text="Bedrooms: " textFill="#616161">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="bedroomCount" text="None">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="290.0">
-                     <children>
-                        <Label text="Garden: " textFill="#616161">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="gardenBoolean" text="Not available">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="290.0">
-                     <children>
-                        <Label fx:id="pets" text="Accept Pets">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="24.0" prefWidth="200.0">
-                     <children>
-                        <Separator prefWidth="200.0" />
-                     </children>
-                  </HBox>
                   <HBox alignment="CENTER" prefHeight="29.0" prefWidth="290.0">
                      <children>
                         <Label text="Type: " textFill="#616161">
@@ -118,35 +71,7 @@
                               <Font name="Bell MT" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="type" text="Office">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="290.0">
-                     <children>
-                        <Label text="Parking Space: " textFill="#616161">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="parking" text="30">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="290.0">
-                     <children>
-                        <Label text="Area in square feet: " textFill="#616161">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="area" text="4500">
+                        <Label fx:id="type" text="Residential">
                            <font>
                               <Font name="Bell MT" size="18.0" />
                            </font>
@@ -156,6 +81,48 @@
                   <HBox alignment="CENTER" prefHeight="23.0" prefWidth="290.0">
                      <children>
                         <Separator prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="290.0">
+                     <children>
+                        <Label fx:id="dynaInfo1" text="data 1" textFill="#616161">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="dynaData1" text="data 1">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="290.0">
+                     <children>
+                        <Label fx:id="dynaInfo2" text="data 2" textFill="#616161">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="dynaData2" text="data 2">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="290.0">
+                     <children>
+                        <Label fx:id="dynaInfo3" text="data 3" textFill="#616161">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="dynaData3" text="data 3">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
                </children>
@@ -174,7 +141,7 @@
                      </font>
                   </Label>
                   <HBox prefHeight="96.0" prefWidth="22.0" />
-                  <ImageView fitHeight="62.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="62.0" fitWidth="53.0" onMouseClicked="#backToLogin" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@default.png" />
                      </image>

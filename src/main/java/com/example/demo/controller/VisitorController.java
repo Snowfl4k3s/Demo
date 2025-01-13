@@ -9,8 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -26,43 +26,35 @@ public class VisitorController implements Initializable {
     private Label address;
 
     @FXML
-    private Label area;
-
-    @FXML
-    private Label bedroomCount;
-
-    @FXML
-    private Label gardenBoolean;
-
-    @FXML
-    private Label host;
-
-    @FXML
-    private Label owner;
-
-    @FXML
-    private Label parking;
-
-    @FXML
-    private Label pets;
-
-    @FXML
     private Label price;
-
-    @FXML
-    private ImageView profile;
 
     @FXML
     private Label type;
 
     @FXML
-    private Label username;
-
-    @FXML
-    private ScrollPane scroll;
-
-    @FXML
     private GridPane grid;
+
+    @FXML
+    private Label dynaData1;
+
+    @FXML
+    private Label dynaData2;
+
+    @FXML
+    private Label dynaData3;
+
+    @FXML
+    private Label dynaInfo1;
+
+    @FXML
+    private Label dynaInfo2;
+
+    @FXML
+    private Label dynaInfo3;
+
+    @FXML
+    private ImageView testImg;
+
 
     private MyListener myListener;
 
@@ -89,31 +81,67 @@ public class VisitorController implements Initializable {
         return PropertyList;
     }
 
-    private void setChosenProperty(Property property) {
-        address.setText(property.getAddress());
-        area.setText("" + property.getArea());
-        bedroomCount.setText("" + property.getBedroom());
-        if (property.isGarden()) {
-            gardenBoolean.setText("Available");
-        }
-        else {
-            gardenBoolean.setText("Not available");
-        }
-        parking.setText("" + property.getParking());
-        if (property.isPets()) {
-            pets.setText("Accept pets");
-        }
-        else {
-            pets.setText("Pets not allowed");
-        }
-        price.setText("" + property.getPricing());
-        type.setText(property.getType());
+    @FXML
+    private void backToLogin(MouseEvent event) throws IOException {
+        Main m = new Main();
+        m.changeScene("/Login.fxml");
     }
 
-    public void openProfile() throws IOException {
-        Main m = new Main();
-        m.changeScene("/Profile.fxml");
+    private void setChosenProperty(Property property) {
+
+        address.setText(property.getAddress());
+        price.setText("" + property.getPricing());
+        type.setText(property.getType());
+
+        if(property.getType().equals("Residential")) {
+            dynaInfo1.setText("Bedrooms: ");
+            dynaData1.setText("" + property.getBedroom());
+            dynaInfo2.setText("Garden: ");
+            if (property.isGarden()) {
+                dynaData2.setText("Available");
+            }
+            else {
+                dynaData2.setText("Not available");
+            }
+            dynaInfo3.setText("");
+            if (property.isPets()) {
+                dynaData3.setText("Accept pets");
+            }
+            else {
+                dynaData3.setText("Pets not allowed");
+            }
+
+        }
+        else if (property.getType().equals("Commercial")) {
+            dynaInfo1.setText("Business Type: ");
+            dynaData1.setText(property.getBuisnessType());
+            dynaInfo2.setText("Parking Space: ");
+            dynaData2.setText("" + property.getParking());
+            dynaInfo3.setText("Area: ");
+            dynaData3.setText("" + property.getArea());
+        }
+//        bedroomCount.setText("" + property.getBedroom());
+//        if (property.isGarden()) {
+//            gardenBoolean.setText("Available");
+//        }
+//        else {
+//            gardenBoolean.setText("Not available");
+//        }
+//        if (property.isPets()) {
+//            pets.setText("Accept pets");
+//        }
+//        else {
+//            pets.setText("Pets not allowed");
+//        }
+//        businessType.setText(property.getBuisnessType());
+//        parking.setText("" + property.getParking());
+//        area.setText("" + property.getArea());
     }
+
+//    public void openProfile() throws IOException {
+//        Main m = new Main();
+//        m.changeScene("/Profile.fxml");
+//    }
 //
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

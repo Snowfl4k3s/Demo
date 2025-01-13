@@ -38,10 +38,6 @@ public class Main extends Application {
             System.out.println(Tenant);
         }
 
-        List<Property> PropertyList = DataLoader.loadProperties();
-        for (Property Property : PropertyList) {
-            System.out.println(Property);
-        }
         launch();
     }
 }
