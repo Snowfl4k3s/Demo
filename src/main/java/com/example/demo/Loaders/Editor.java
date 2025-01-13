@@ -35,4 +35,64 @@ public class Editor {
         }
     }
 
+    public static void updateProperty(int propertyId, String address, int pricing, int hostId,
+                                      String propertyType, String imageUrl, Integer bedrooms,
+                                      Boolean petFriendly, Boolean availGarden, String businessType,
+                                      Integer parkingSpace, Float squareFt) {
+        try (Connection conn = DriverManager.getConnection(databaseUrl)) {
+            System.out.println("Connected to the database!");
+
+            // Determine the correct SQL query based on the PropertyType
+            String sql;
+            if ("Residential".equalsIgnoreCase(propertyType)) {
+                sql = "UPDATE \"Properties\" SET \"Address\" = ?, \"Pricing\" = ?, \"Hosted by\" = ?, \"Property Type\" = ?, \"Image URL\" = ?, " +
+                        "\"No.Bedrooms\" = ?, \"Pet.Friendly\" = ?, \"Avail.Garden\" = ? WHERE \"id\" = ?";
+            } else if ("Commercial".equalsIgnoreCase(propertyType)) {
+                sql = "UPDATE \"Properties\" SET \"Address\" = ?, \"Pricing\" = ?, \"Hosted by\" = ?, \"Property Type\" = ?, \"Image URL\" = ?, " +
+                        "\"Business.Ty\" = ?, \"Parking.Space\" = ?, \"Square.Ft\" = ? WHERE \"id\" = ?";
+            } else {
+                System.out.println("Invalid property type. Use 'Residential' or 'Commercial'.");
+                return; // Exit early if the property type is invalid
+            }
+
+            // Use PreparedStatement for safe parameter insertion
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                // Set basic parameters
+                stmt.setString(1, address);
+                stmt.setInt(2, pricing);
+                stmt.setInt(3, hostId);
+                stmt.setString(4, propertyType);
+                stmt.setString(5, imageUrl);
+
+                // Set additional parameters based on the property type
+                if ("Residential".equalsIgnoreCase(propertyType)) {
+                    stmt.setInt(6, (bedrooms != null) ? bedrooms : 0); // No.Bedrooms, default to 0 if null
+                    stmt.setBoolean(7, (petFriendly != null) ? petFriendly : false); // Pet.Friendly, default to false if null
+                    stmt.setBoolean(8, (availGarden != null) ? availGarden : false); // Avail.Garden, default to false if null
+                } else if ("Commercial".equalsIgnoreCase(propertyType)) {
+                    stmt.setString(6, (businessType != null) ? businessType : null); // Business.Ty
+                    stmt.setInt(7, (parkingSpace != null) ? parkingSpace : 0); // Parking.Space, default to 0 if null
+                    stmt.setFloat(8, (squareFt != null) ? squareFt : 0f); // Square.Ft, default to 0f if null
+                }
+
+                // Set the property ID in the WHERE clause to identify the correct property
+                stmt.setInt(9, propertyId);
+
+                // Execute the update query
+                int rowsUpdated = stmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Property updated successfully!");
+                } else {
+                    System.out.println("Failed to update property. No rows affected.");
+                }
+            } catch (SQLException e) {
+                System.err.println("Error executing update: " + e.getMessage());
+            }
+        } catch (SQLException e) {
+            System.err.println("Connection failed: " + e.getMessage());
+        }
+    }
+
+
+
 }

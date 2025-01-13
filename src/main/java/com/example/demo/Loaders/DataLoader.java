@@ -10,9 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DataLoader {
+    static String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
     public static List<Tenant> loadTenants() {
         List<Tenant> tenants = new ArrayList<>();
-        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+
         Connection conn = null;
 
         try {
@@ -57,7 +58,7 @@ public class DataLoader {
 
     public static List<Owner> loadOwners() {
         List<Owner> owners = new ArrayList<>();
-        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+
         Connection conn = null;
 
         try {
@@ -102,7 +103,7 @@ public class DataLoader {
 
     public static List<Host> loadHosts() {
         List<Host> hosts = new ArrayList<>();
-        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+
         Connection conn = null;
 
         try {
@@ -148,7 +149,7 @@ public class DataLoader {
 
     public static List<Property> loadProperties() {
         List<Property> properties = new ArrayList<>();
-        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+        ;
         Connection conn = null;
 
         try {
@@ -203,7 +204,7 @@ public class DataLoader {
 
     public static List<RentalAgreement> loadRentalAgreements() {
         List<RentalAgreement> rentalAgreements = new ArrayList<>();
-        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+
         Connection conn = null;
 
         try {
@@ -250,7 +251,7 @@ public class DataLoader {
     }
     public static List<Payment> loadPayments() {
         List<Payment> payments = new ArrayList<>();
-        String supabaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
+
         Connection conn = null;
 
         try {
@@ -292,5 +293,42 @@ public class DataLoader {
             }
         }
         return payments;
+    }
+
+    public static void displayPropertiesWithStatus() {
+        String sql = "SELECT " +
+                "p.\"id\" AS PropertyId, " +
+                "p.\"Address\", " +
+                "p.\"Pricing\", " +
+                "p.\"Property Type\", " +
+                "p.\"Image URL\", " +
+                "COALESCE(ra.\"Status\", 'Unavailable') AS \"Contract Status\", " +
+                "ra.\"Tenant\", " +
+                "ra.\"Date Leased\" " +
+                "FROM \"Properties\" p " +
+                "LEFT JOIN \"Rental Agreements\" ra " +
+                "ON p.\"id\" = ra.\"Property\"";
+
+        try (Connection conn = DriverManager.getConnection(supabaseUrl);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            System.out.println("Properties with Rental Status:");
+            while (rs.next()) {
+                int propertyId = rs.getInt("PropertyId");
+                String address = rs.getString("Address");
+                int pricing = rs.getInt("Pricing");
+                String propertyType = rs.getString("Property Type");
+                String imageUrl = rs.getString("Image URL");
+                String rentalStatus = rs.getString("Contract Status");
+                int tenantId = rs.getInt("Tenant");
+                Date dateLeased = rs.getDate("Date Leased");
+
+                System.out.printf("PropertyId: %d, Address: %s, Pricing: %d, Property Type: %s, Image URL: %s, Rental Status: %s, TenantId: %d, Date Leased: %s%n",
+                        propertyId, address, pricing, propertyType, imageUrl, rentalStatus, tenantId, dateLeased);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error querying properties: " + e.getMessage());
+        }
     }
 }

@@ -34,13 +34,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        int userId = 1; // Example User ID
-        String Name = "John Doe";
-        String dob = "1990-05-15"; // Date of Birth in YYYY-MM-DD format
-        String email = "johndoe@example.com";
-        String password = "newpassword123"; // It is advised to hash the password before saving
-
-        // Update user data
-        ProfileEditor.updateUser(userId, Name, dob, email, password);
+        DataLoader.displayPropertiesWithStatus();
     }
 }
