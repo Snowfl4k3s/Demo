@@ -32,6 +32,11 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        List<Tenant> TenantsList = DataLoader.loadTenants();
+
+        for (Tenant Tenant : TenantsList) {
+            System.out.println(Tenant);
+        }
 
         launch();
     }
