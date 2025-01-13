@@ -1,7 +1,7 @@
 package com.example.demo.Loaders;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
-
+import static org.mockito.Mockito.*;
 import java.io.File;
 import java.sql.*;
 
