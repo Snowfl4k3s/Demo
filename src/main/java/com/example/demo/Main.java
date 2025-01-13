@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import com.example.demo.Loaders.*;
 
 import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -32,12 +34,13 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        List<Tenant> TenantsList = DataLoader.loadTenants();
+        int userId = 1; // Example User ID
+        String Name = "John Doe";
+        String dob = "1990-05-15"; // Date of Birth in YYYY-MM-DD format
+        String email = "johndoe@example.com";
+        String password = "newpassword123"; // It is advised to hash the password before saving
 
-        for (Tenant Tenant : TenantsList) {
-            System.out.println(Tenant);
-        }
-
-        launch();
+        // Update user data
+        ProfileEditor.updateUser(userId, Name, dob, email, password);
     }
 }
