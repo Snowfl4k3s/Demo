@@ -13,6 +13,7 @@ public class Uploader {
     static String supabaseUrl = "https://colexklzjdwbivpecfon.supabase.co";
     static String supabaseApiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNvbGV4a2x6amR3Yml2cGVjZm9uIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNjMyNjY4MiwiZXhwIjoyMDUxOTAyNjgyfQ.02A7SIZOYZY53dIdyEKO6jgYlJrYRSrdB0P_yLto_Lw";
     static String bucketName = "Property image";
+
     public static void uploadImage(String filePath, String fileName, int propertyId) {
         String imgUrl;
         try {
@@ -73,9 +74,63 @@ public class Uploader {
 
     }
 
+    public static void uploadProperty(String address, int pricing, int hostId, int ownerId,
+                                      String propertyType, String imageUrl, Integer bedrooms,
+                                      Boolean petFriendly, Boolean availGarden, String businessType,
+                                      Integer parkingSpace, Float squareFt) {
+        try (Connection conn = DriverManager.getConnection(databaseUrl)) {
+            System.out.println("Connected to the database!");
+            // Determine the correct SQL query based on the PropertyType
+            String sql;
+            if ("Residential".equalsIgnoreCase(propertyType)) {
+                sql = "INSERT INTO \"Properties\" (\"Address\", \"Pricing\", \"Hosted by\", \"Owned by\", \"Property Type\", \"Image URL\", \"No.Bedrooms\", \"Pet.Friendly\", \"Avail.Garden\") " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                } else if ("Commercial".equalsIgnoreCase(propertyType)) {
+                    sql = "INSERT INTO \"Properties\" (\"Address\", \"Pricing\", \"Hosted by\", \"Owned by\", \"Property Type\", \"Image URL\", \"Business.Ty\", \"Parking.Space\", \"Square.Ft\") " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                } else {
+                    System.out.println("Invalid property type. Use 'Residential' or 'Commercial'.");
+                    return; // If the property type is invalid, exit early.
+                }
+
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    // Set basic parameters
+                    stmt.setString(1, address);
+                    stmt.setInt(2, pricing);
+                    stmt.setInt(3, hostId);
+                    stmt.setInt(4, ownerId);
+                    stmt.setString(5, propertyType);
+                    stmt.setString(6, imageUrl);
+
+                    // Set additional parameters based on the property type
+                    if ("Residential".equalsIgnoreCase(propertyType)) {
+                        stmt.setInt(7, (bedrooms != null) ? bedrooms : 0); // Set 0 or provided value for No.Bedrooms
+                        stmt.setBoolean(8, (petFriendly != null) ? petFriendly : false); // Default to false if null
+                        stmt.setBoolean(9, (availGarden != null) ? availGarden : false); // Default to false if null
+                    } else if ("Commercial".equalsIgnoreCase(propertyType)) {
+                        stmt.setString(7, (businessType != null) ? businessType : null); // Business.Ty
+                        stmt.setInt(8, (parkingSpace != null) ? parkingSpace : 0); // Parking.Space
+                        stmt.setFloat(9, (squareFt != null) ? squareFt : 0f); // Square.Ft
+                    }
+
+                    // Execute the insert query
+                    int rowsInserted = stmt.executeUpdate();
+                    if (rowsInserted > 0) {
+                        System.out.println("Property uploaded successfully!");
+                    } else {
+                        System.out.println("Failed to upload property.");
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Error executing insert: " + e.getMessage());
+                }
+            } catch (SQLException e) {
+                System.err.println("Connection failed: " + e.getMessage());
+            }
+    }
+}
+
     /*public static void main(String[] args) {
         String imagePath = "Bruh.jpg";
         String imageName = "Building.jpg"; // Specify the name for the image in Supabase
         uploadImage(imagePath, imageName);
     }*/
-}
