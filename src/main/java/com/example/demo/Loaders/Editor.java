@@ -93,6 +93,34 @@ public class Editor {
         }
     }
 
+    public static void updateRentalAgreement(int agreementId, String newStatus) {
+        String sql = "UPDATE \"Rental Agreements\" " +
+                "SET \"Status\" = ? " +
+                "WHERE \"id\" = ?";
+
+        try (Connection conn = DriverManager.getConnection(databaseUrl);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set parameters for the query
+            stmt.setString(1, newStatus); // New status value
+            stmt.setInt(2, agreementId);  // Agreement ID
+
+            // Execute the update
+            int rowsUpdated = stmt.executeUpdate();
+
+            // Check the result
+            if (rowsUpdated > 0) {
+                System.out.println("Rental agreement updated successfully!");
+            } else {
+                System.out.println("No rental agreement found with the given AgreementId.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error updating rental agreement: " + e.getMessage());
+        }
+    }
+
+
 
 
 }

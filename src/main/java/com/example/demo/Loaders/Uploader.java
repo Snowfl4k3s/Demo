@@ -128,6 +128,45 @@ public class Uploader {
             }
     }
 
+    public static void uploadRentalAgreement(int tenantId, int propertyId, String dateLeased,
+                                             String status, int hostId) {
+        // Ensure valid status value
+        if (!status.equalsIgnoreCase("Ongoing") && !status.equalsIgnoreCase("Completed")) {
+            System.out.println("Invalid status. Use 'Ongoing' or 'Completed'.");
+            return;
+        }
+
+        // Parse date string to java.sql.Date
+            Date date = Date.valueOf(dateLeased);
+
+
+        // SQL Query
+        String sql = "INSERT INTO \"Rental Agreements\" (\"Tenant\", \"Property\", \"Date Leased\", \"Status\", \"Host\") " +
+                "VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(databaseUrl);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set query parameters
+            stmt.setInt(1, tenantId);
+            stmt.setInt(2, propertyId);
+            stmt.setDate(3, date);
+            stmt.setString(4, status);
+            stmt.setInt(5, hostId);
+
+            // Execute the insert query
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Rental agreement uploaded successfully!");
+            } else {
+                System.out.println("Failed to upload rental agreement.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Database error: " + e.getMessage());
+        }
+    }
+
 
 }
 
