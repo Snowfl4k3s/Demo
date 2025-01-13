@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
 
-public class ImageUploader {
+public class Uploader {
     static String databaseUrl = "jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres?user=postgres.colexklzjdwbivpecfon&password=YCLFiGjaWefonw7u";
     static String supabaseUrl = "https://colexklzjdwbivpecfon.supabase.co";
     static String supabaseApiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNvbGV4a2x6amR3Yml2cGVjZm9uIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNjMyNjY4MiwiZXhwIjoyMDUxOTAyNjgyfQ.02A7SIZOYZY53dIdyEKO6jgYlJrYRSrdB0P_yLto_Lw";
